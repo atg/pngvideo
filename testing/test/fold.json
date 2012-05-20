@@ -1,0 +1,70 @@
+{
+  "frame": [
+    {
+      "duration": 1.0, 
+      "isFull": true
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }, 
+    {
+      "duration": 1.0, 
+      "isFull": false
+    }
+  ], 
+  "height": 410, 
+  "width": 666
+}

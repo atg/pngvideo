@@ -11,11 +11,13 @@ def standard_sorted(xs):
         return [convert(c) for c in re.split('([0-9]+)', key)] 
     return sorted(xs, key=alphanum_key)
 
+def listify(row):
+    return [list(x) for x in row]
 def box(rows):
-    return [zip(row[0::3], row[1::3], row[2::3], row[3::3]) for row in rows]
+    return [listify(zip(row[0::4], row[1::4], row[2::4], row[3::4])) for row in rows]
 
 def unbox(rows):
-    return [zip(*row) for row in rows]
+    return [[item for sublist in row for item in sublist] for row in rows]
 
 def main():
     try:
@@ -48,18 +50,32 @@ def main():
     frames[0]['isFull'] = True
     lastFull = frames[0]
     allrows = []
+    lastFullPixels = box(lastFull['png'].asRGBA8()[2])
+    allrows.extend(unbox(lastFullPixels))
     for f in frames[1:]:
-        lastFullPixels = box(lastFull['png'].asRGBA8()[2])
-        pixels = box(f['png'].asRGBA8()[2])
+        print f['originalPath']
+        print f['png'].asRGBA8()[2]
+        unboxedpixels = f['png'].asRGBA8()[2]
+        pixels = box(unboxedpixels)
+        
         isFull = False
+        unchanged = 0
+        changed = 0
         for i in xrange(len(lastFullPixels)):
             for j in xrange(len(lastFullPixels[i])):
                 a = lastFullPixels[i][j]
                 b = pixels[i][j]
                 
-                if b[3] != 255 and a[3] != b[3]:
-                    isFull = True
-                    break
+                if b[3] == 255 or a[3] == 0 or a == b:
+                    unchanged += 1
+                    continue
+                changed += 1
+                print i
+                print j
+                print a
+                print b
+                isFull = True
+                break
             if isFull:
                 break
         
@@ -72,22 +88,24 @@ def main():
                     
                     if a == b:
                         pixels[i][j] = (0, 0, 0, 0)
+                    
+        else:
+            lastFullPixels = pixels
         
         f['isFull'] = isFull
-        allrows.extend(pixels)
+        allrows.extend(unbox(pixels))
     
-    # 'RGBA;8'
     fullpng = png.from_array(allrows, 'RGBA;8')
     fullpng.save(output_path)
     
     json_output = {
-        "width": len(allrows[0]),
-        "height": len(allrows),
-        "frames": [{ "isFull": f["isFull"], "duration": 1.0, } for f in frames],
+        "width": len(allrows[0]) / 4,
+        "height": len(allrows) / len(frames),
+        "frame": [{ "isFull": f["isFull"], "duration": 1.0, } for f in frames],
     }
     
     with open(json_output_path, 'w') as jo:
-        jo.write(json.dumps(json_output, separators=(',',':')))
+        jo.write(json.dumps(json_output, sort_keys=True, indent=2 ))
     
 
 if __name__ == '__main__':
