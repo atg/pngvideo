@@ -19,9 +19,9 @@ def unbox(rows):
 
 def main():
     try:
-        frames_dir = sys.argv[0]
-        output_path = sys.argv[1]
-        json_output_path = sys.argv[2]
+        frames_dir = sys.argv[1]
+        output_path = sys.argv[2]
+        json_output_path = sys.argv[3]
     except:
         print 'python pngvideo.py <frames> <output.png> <output.json>'
         sys.exit(1)
