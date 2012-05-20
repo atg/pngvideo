@@ -49,8 +49,8 @@ def main():
     lastFull = frames[0]
     allrows = []
     for f in frames[1:]:
-        lastFullPixels = box(lastFull['png'].asRGBA8())
-        pixels = box(f['png'].asRGBA8())
+        lastFullPixels = box(lastFull['png'].asRGBA8()[2])
+        pixels = box(f['png'].asRGBA8()[2])
         isFull = False
         for i in xrange(len(lastFullPixels)):
             for j in xrange(len(lastFullPixels[i])):
