@@ -83,7 +83,7 @@ def main():
     json_output = {
         "width": len(allrows[0]),
         "height": len(allrows),
-        "frames": [{ "isFull": f["isFull"] } for f in frames],
+        "frames": [{ "isFull": f["isFull"], "duration": 1.0, } for f in frames],
     }
     
     with open(json_output_path, 'w') as jo:

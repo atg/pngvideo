@@ -26,11 +26,11 @@ PNGPlayer.prototype.playFrame = function() {
     var frame = this.frameDesc.frame[this.currentImage];
     this.drawFrame(frame, this.currentImage);
     
-    var delay = frame.delay;
+    var duration = frame.duration;
     window.setTimeout(function() {
         this.currentImage++;
         this.playFrame();
-    }, delay);
+    }, round(duration * 1000));
 };
 PNGPlayer.prototype.drawFrame = function() {
     var lastFullFrameIndex = this.currentImage;
@@ -46,6 +46,9 @@ PNGPlayer.prototype.drawFrame = function() {
     
     // Draw each frame
     for (var i = lastFullFrameIndex; i <= this.currentImage; i++) {
+        if (i !== lastFullFrameIndex && i !== this.currentImage)
+            continue;
+        
         ctx.drawImage(this.fullImage, 0, i * this.frameDesc.frameHeight);
     }
 };
